@@ -1,0 +1,50 @@
+import { Meteor } from "meteor/meteor";
+import { Accounts } from 'meteor/accounts-password';
+
+import { ContactsCollection } from '../imports/api/ContactsCollection';
+import { UsersCollections } from '../imports/api/UsersCollections';
+import { DonationsCollections } from '../imports/api/DonationsCollections';
+
+
+const insertContacts = contact => ContactsCollection.insert(contact);
+const insertUsers = user => UsersCollections.insert(user);
+const insertDonatioms = donation => DonationsCollections.insert(donation);
+Meteor.startup(() => {
+
+  if (UsersCollections.find({}).count() === 0) {
+    insertUsers({
+      email: "user@example.com",
+      password: "password"
+    })
+  }
+
+  if (ContactsCollection.find({}).count() === 0) {
+    [
+      {
+        id: 1,
+        name: "Deshant Devkota",
+        address: "Bharatpur-2, Chitwan",
+        password: "password"
+      },
+      {
+        id: 2,
+        name: "Rodan Ramdam",
+        address: "Thamel-2, Kathmandu",
+        password: "password"
+      },
+      {
+        id: 3,
+        name: "Ravi Tamang",
+        address: "FortyTwoTech, Keela",
+        password: "password"
+      },
+      {
+        id: 4,
+        name: "Rabindra Joshi",
+        address: "RaPraPaa",
+        password: "password"
+      },
+
+    ].forEach(insertContacts)
+  }
+});

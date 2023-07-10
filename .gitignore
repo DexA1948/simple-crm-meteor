@@ -1,0 +1,16 @@
+.meteor/local
+node_modules/
+.idea/
+/packages/
+**/.DS_STORE
+dev*.json
+.cache/
+tests/coverage/
+junit.xml
+server_test.xml
+cypress/screenshots
+.vscode/
+yarn.lock
+coverage
+.coverage/
+.coverage-unit/
