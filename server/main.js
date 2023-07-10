@@ -1,6 +1,9 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-password';
 
+import '../imports/api/userMethods';
+import '../imports/api/donationMethods';
+
 import { UsersCollections } from '../imports/api/UsersCollections';
 import { ContactsCollection } from '../imports/api/ContactsCollection';
 import { DonationsCollections } from '../imports/api/DonationsCollections';

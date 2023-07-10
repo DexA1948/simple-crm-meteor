@@ -74,8 +74,8 @@
 </style>
   
 <script>
+import { Meteor } from "meteor/meteor"
 import { ContactsCollection } from '../api/ContactsCollection';
-import { DonationsCollections } from '../api/DonationsCollections';
 
 export default {
     props: ['_id'],
@@ -92,16 +92,16 @@ export default {
             this.loggedIn = false;
             localStorage.setItem('loggedIn', false);
         },
-        insertDonations(donation) {
-            DonationsCollections.insert(donation)
+        insertDonations(donorid, amount) {
+            Meteor.call("donations.insert", donorid, amount);
             this.adddonationErr = "Donation Added Successfully";
             this.$refs.addbutton.classList.add('disabled');
-            setTimeout(()=>{
-                this.$router.push({name: 'home'});
+            setTimeout(() => {
+                this.$router.push({ name: 'home' });
             }, 2000);
         },
         adddonation(event) {
-            this.insertDonations({ donorid: this._id, amount: this.amount })
+            this.insertDonations(this._id, this.amount)
         },
         getContactDetails() {
             return ContactsCollection.find({ _id: this._id }).fetch()[0]
@@ -112,9 +112,8 @@ export default {
         }
     },
     created() {
-        this.getContactDetails().then(contact => {
-            this.contactdetails = contact;
-        });
+        this.contactdetails = this.getContactDetails();
+        this.donorid = this._id;
     },
 
 }

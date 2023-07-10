@@ -54,6 +54,8 @@
 <script>
 
 import { UsersCollections } from '../api/UsersCollections';
+import { Meteor } from 'meteor/meteor';
+
 export default {
     data() {
         return {
@@ -78,7 +80,7 @@ export default {
                 let password = user[0].password;
                 console.log(password);
                 if (this.password == password) {
-                    UsersCollections.update({ _id: user[0]._id }, { $set: { password: this.newpassword } });
+                    Meteor.call('users.updatePassword', user[0]._id, this.newpassword);
                     this.resetErr = "Password Reset Successful";
 
                     this.$refs.editbutton.classList.add('disabled');
