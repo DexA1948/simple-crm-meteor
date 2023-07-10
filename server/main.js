@@ -3,6 +3,7 @@ import { Accounts } from 'meteor/accounts-password';
 
 import '../imports/api/userMethods';
 import '../imports/api/donationMethods';
+import '../imports/api/contactMethods';
 
 import { UsersCollections } from '../imports/api/UsersCollections';
 import { ContactsCollection } from '../imports/api/ContactsCollection';
@@ -26,18 +27,22 @@ Meteor.startup(() => {
       {
         name: "Deshant Devkota",
         address: "Bharatpur-2, Chitwan",
+        owner: "user@example.com"
       },
       {
         name: "Rodan Ramdam",
         address: "Thamel-2, Kathmandu",
+        owner: "user@example.com"
       },
       {
         name: "Ravi Tamang",
         address: "FortyTwoTech, Keela",
+        owner: "user@example.com"
       },
       {
         name: "Rabindra Joshi",
         address: "RaPraPaa",
+        owner: "user@example.com"
       },
 
     ].forEach(insertContacts)

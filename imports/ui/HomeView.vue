@@ -130,7 +130,7 @@ export default {
     },
     methods: {
         getContacts() {
-            return ContactsCollection.find().fetch();
+            return ContactsCollection.find({owner: this.email}).fetch();
         },
         saveContacts() {
             localStorage.setItem('contacts', JSON.stringify(this.contacts));

@@ -66,6 +66,7 @@
   
 <script>
 
+import { Meteor } from "meteor/meteor"
 import { ContactsCollection } from '../api/ContactsCollection';
 export default {
     data() {
@@ -73,13 +74,14 @@ export default {
             name: '',
             address: '',
             loggedIn: localStorage.getItem('loggedIn') == 'true' ? true : false,
+            email: localStorage.getItem('email'),
             addcontactErr: null,
         };
     },
     methods: {
 
-        insertContacts(contact) {
-            ContactsCollection.insert(contact);
+        insertContacts(name, address) {
+            Meteor.call('contact.insert', name, address, this.email);
             this.addcontactErr = "Contact Added Successfully";
             this.$refs.addbutton.classList.add('disabled');
             setTimeout(()=>{
@@ -87,7 +89,7 @@ export default {
             }, 2000);
         },
         addcontact(event) {
-            this.insertContacts({ name: this.name, address: this.address });
+            this.insertContacts(this.name, this.address );
         },
         logout() {
             this.loggedIn = false;

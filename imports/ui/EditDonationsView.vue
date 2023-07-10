@@ -77,6 +77,7 @@
 </style>
   
 <script>
+import { Meteor } from 'meteor/meteor';
 import { ContactsCollection } from '../api/ContactsCollection';
 import { DonationsCollections } from '../api/DonationsCollections';
 
@@ -98,7 +99,7 @@ export default {
             localStorage.setItem('loggedIn', false);
         },
         deletedonation() {
-            DonationsCollections.remove({ _id: this._id });
+            Meteor.call('donations.delete', this._id);
             this.editdonationErr = "Successfully Deleted Information"
             this.$refs.editbutton.classList.add('disabled');
             setTimeout(()=>{
@@ -106,7 +107,7 @@ export default {
             }, 2000);
         },
         editdonation() {
-            DonationsCollections.update({ _id: this._id }, { $set: { donorid: this.donorid, amount: this.amount } });
+            Meteor.call('donations.update', this._id, this.donorid, this.amount);
             this.editdonationErr = "Successfully Updated Information"
         },
         getContactDetails(id) {

@@ -73,6 +73,7 @@
 }
 </style>
 <script>
+import { Meteor } from "meteor/meteor"
 import { ContactsCollection } from '../api/ContactsCollection';
 
 export default {
@@ -93,7 +94,7 @@ export default {
             localStorage.setItem('loggedIn', false);
         },
         deletecontact() {
-            ContactsCollection.remove({ _id: this._id });
+            Meteor.call('contact.delete', this._id);
             this.editcontactErr = "Successfully Deleted Information";
             this.$refs.editbutton.classList.add('disabled');
             setTimeout(()=>{
@@ -101,7 +102,7 @@ export default {
             }, 2000);
         },
         editcontact() {
-            ContactsCollection.update({ _id: this._id }, { $set: { name: this.name, address: this.address } });
+            Meteor.call('contact.update', this._id, this.name, this.address);
             this.editcontactErr = "Successfully Updated Information"
         },
         getContactDetails() {
